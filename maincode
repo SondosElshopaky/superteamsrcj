@@ -187,7 +187,7 @@ def Scan_Camera1(img):
                     darkmask = cv2.inRange(tile_hsv, lower_black1, upper_black1)
 
                     black = cv2.countNonZero(darkmask) / (tile.shape[0] * tile.shape[1])
-                    cv2.imwrite(f"c:/Users/CYBER-TECH/Desktop/saves/Tile {i+1}.png", tile)
+                
 
                     if black > 0.3:
                         conttourq.append(True)
