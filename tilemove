@@ -1,0 +1,34 @@
+dy = [[-12, 0, 0, 12],
+        [0, -12, 12, 0],
+        [12, 0, 0, -12],
+        [0, 12, -12, 0]]
+dx = [[0, 12, -12, 0],
+        [-12, 0, 0, 12],
+        [0, -12, 12, 0],
+        [12, 0, 0, -12]]
+
+def move_tile_forward():
+
+    get_gps_readings()
+    get_compass_value()
+
+    #calculating el starting tile as a multiple of 12
+    x, y = get_current_xy()
+    cnt = 0
+
+    targetx=x+dx[angle_to_idx[exact_angle(compass_value)]][0]
+    targety=y+dy[angle_to_idx[exact_angle(compass_value)]][0]
+
+    while(robot.step(timestep) != -1):
+        cnt += 1
+
+        get_gps_readings()
+        if dx[angle_to_idx[exact_angle(compass_value)]][0] == 0 and abs(targety-(gps_readings[2]-ystart)) < 0.25:
+            stop()
+            break
+
+        if dy[angle_to_idx[exact_angle(compass_value)]][0] == 0 and abs(targetx-(gps_readings[0]-xstart)) < 0.25:
+            stop()
+            break
+
+    return
