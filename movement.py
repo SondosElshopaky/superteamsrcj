@@ -1,10 +1,60 @@
-from controller import Robot, DistanceSensor, InertialUnit, Motor, GPS, Lidar, Camera
-import math
+
+from controller import Robot, GPS, Lidar, InertialUnit, DistanceSensor, Motor
 import cv2
-import struct
 import numpy as np
+import math
+import struct
+
+#region defines
+###############################################################DEFINES######################################################################
+#define robot
+robot = Robot()
+timeStep = 32
+timestep = 32
 
 
+# define motors
+wheel_right = robot.getDevice("wheel1 motor") #wheel1
+wheel_left = robot.getDevice("wheel2 motor") #wheel2
+
+
+#reseting motors
+wheel_right.setPosition(float('inf'))
+wheel_left.setPosition(float('inf'))
+wheel_right.setVelocity(0.0)
+wheel_left.setVelocity(0.0)
+
+
+#define sensors
+imu = robot.getDevice("inertial_unit") #inertial_unit
+gps = robot.getDevice("gps")
+color = robot.getDevice("colour_sensor")
+lidar = robot.getDevice("lidar")
+#distance_sensor = robot.getDevice("distance sensor1")
+emitter = robot.getDevice("emitter")
+receiver = robot.getDevice("receiver")
+receiver.enable(timestep)
+
+
+#enabling sensors
+imu.enable(timestep)
+gps.enable(timestep)
+color.enable(timestep)
+lidar.enable(timestep)
+#distance_sensor.enable(timestep)
+
+
+#define constants
+max_velocity = 6.28
+pi = math.pi
+
+
+#define variables
+velocity = max_velocity
+compass_value=0
+lidar_value=0
+gps_readings = [0, 0, 0]
+###################################################################################
 def convert(deg):
     if deg < 0:
 
@@ -267,3 +317,33 @@ def movefront():  # need delay in beginning to work min 2 scs
     else:
         correction()
         print("not in any directions >3")
+
+
+def moveForward(steps):
+    while steps > 0:
+        movefront()
+        steps -= 1
+
+def moveLeft(steps):
+    turnl()
+    moveForward(steps)
+
+def moveRight(steps):
+    turnr()
+    moveForward(steps)
+    
+
+def go_to_the_left_tile():
+    moveForward(2)
+    moveRight(1)
+    moveLeft(1)
+    moveLeft(2)
+    moveRight(1)
+    moveLeft(2)
+    moveLeft(3)
+    moveLeft(1)
+    moveRight(2)
+    moveRight(1)
+    moveLeft(2)
+    moveRight(1)
+    moveLeft(1)
