@@ -149,6 +149,8 @@ def Scan_Camera1(img):
 
 
             if area >= 70 :
+                left_wheel.setVelocity(-4)
+                right_wheel.setVelocity(4)
                 
     
 
