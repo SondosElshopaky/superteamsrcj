@@ -117,13 +117,13 @@ def hazard_image_detection(camera, camera_letter):
         hazard = 'P'
     elif black_pixel_count >= 5:
         hazard = 'C'
-    elif blue_pixel_count > 5 and green_pixel_count > 5 and white_pixel_count > 5:
+    elif blue_pixel_count == 3622 and green_pixel_count == 205 and white_pixel_count == 197:
         hazard = 'B'
         
     elif blue_pixel_count >=5 and yellow_pixel_count >=5:
         hazard = 'G'
     
-    elif red_pixel_count > 2 and white_pixel_count > 5 and green_pixel_count > 2 and blue_pixel_count > 5:
+    elif red_pixel_count ==3 and white_pixel_count ==1198 and green_pixel_count ==3 and blue_pixel_count ==1200:
         hazard = 'R'        
     
     if hazard:
