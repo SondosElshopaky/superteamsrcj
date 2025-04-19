@@ -196,7 +196,7 @@ def Scan_Camera1(img):
                     
                     if conttourq [0] == True:
                         rotate_right()
-                        move_forward
+                        move_forward()
                     else : 
                         move_forward()
 
